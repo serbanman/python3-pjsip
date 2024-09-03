@@ -604,18 +604,6 @@ class Transport:
             self._lib._err_check("info()", self, -1, "Invalid transport")
         return TransportInfo(ti)
 
-    def enable(self):
-        """Enable this transport."""
-        lck = self._lib.auto_lock()
-        err = _pjsua.transport_set_enable(self._id, True)
-        self._lib._err_check("enable()", self, err)
-
-    def disable(self):
-        """Disable this transport."""
-        lck = self._lib.auto_lock()
-        err = _pjsua.transport_set_enable(self._id, 0)
-        self._lib._err_check("disable()", self, err)
-
     def close(self, force=False):
         """Close and destroy this transport.
 

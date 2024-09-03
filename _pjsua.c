@@ -1254,26 +1254,6 @@ static PyObject *py_pjsua_transport_get_info(PyObject *pSelf, PyObject *pArgs)
 }
 
 /*
- * py_pjsua_transport_set_enable
- */
-static PyObject *py_pjsua_transport_set_enable(PyObject *pSelf, 
-					       PyObject *pArgs)
-{
-    pj_status_t status;
-    int id;
-    int enabled;
-
-    PJ_UNUSED_ARG(pSelf);
-
-    if (!PyArg_ParseTuple(pArgs, "ii", &id, &enabled)) {
-        return NULL;
-    }
-    status = pjsua_transport_set_enable(id, enabled);
-
-    return Py_BuildValue("i", status);
-}
-
-/*
  * py_pjsua_transport_close
  */
 static PyObject *py_pjsua_transport_close(PyObject *pSelf, PyObject *pArgs)
@@ -1306,14 +1286,6 @@ static char pjsua_transport_get_info_doc[] =
     "void _pjsua.transport_get_info "
     "(_pjsua.Transport_ID id, _pjsua.Transport_Info info) "
     "Get information about transports.";
-static char pjsua_transport_set_enable_doc[] =
-    "void _pjsua.transport_set_enable "
-    "(_pjsua.Transport_ID id, int enabled) "
-    "Disable a transport or re-enable it. "
-    "By default transport is always enabled after it is created. "
-    "Disabling a transport does not necessarily close the socket, "
-    "it will only discard incoming messages and prevent the transport "
-    "from being used to send outgoing messages.";
 static char pjsua_transport_close_doc[] =
     "void _pjsua.transport_close (_pjsua.Transport_ID id, int force) "
     "Close the transport. If transport is forcefully closed, "
@@ -4071,10 +4043,6 @@ static PyMethodDef py_pjsua_methods[] =
     {
         "transport_get_info", py_pjsua_transport_get_info, METH_VARARGS,
         pjsua_transport_get_info_doc
-    },
-    {
-        "transport_set_enable", py_pjsua_transport_set_enable, METH_VARARGS,
-        pjsua_transport_set_enable_doc
     },
     {
        "transport_close", py_pjsua_transport_close, METH_VARARGS,
